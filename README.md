@@ -16,7 +16,7 @@ space line up with the annotated cell types?
 ## Data
 
 FlyWire connectome, materialization **v783**, downloaded from the
-[FlyWire Codex](https://codex.flywire.ai/api/download). Data files are not included in this
+[FlyWire Codex](https://codex.flywire.ai). Data files are not included in this
 repository; see [`data/README.md`](data/README.md) for the file list and a description of each
 column.
 
