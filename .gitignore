@@ -1,0 +1,17 @@
+# Virtual environment
+.venv/
+
+# Data: ignore everything in data/ except its README
+data/*
+!data/README.md
+
+# Jupyter / Python caches
+.ipynb_checkpoints/
+__pycache__/
+
+# Large result files
+results/**/*.npy
+results/**/*.npz
+results/**/*.pkl
+results/**/*.h5
+results/**/*.keras
