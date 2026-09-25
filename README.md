@@ -1,17 +1,12 @@
 # Predicting Neuron Cell Types from Whole-Brain Connectivity
 
-Machine learning on the **FlyWire connectome** of the adult *Drosophila melanogaster* brain
-(~139,000 neurons, ~15 million synapses). The goal is to predict a neuron's **cell type** and
-**neurotransmitter** using only how it is wired into the rest of the brain.
+Machine learning on the FlyWire connectome of the adult Drosophila melanogaster brain (~139,000 neurons, ~15 million synapses). The goal is to predict a neuron's cell type using only how it is wired into the rest of the brain.
 
 ## Research question
 
 > How much of a neuron's identity is written in its connectivity?
 
-Given only connectivity-derived features for each neuron (input/output degree, synapse counts
-per brain region, fraction of inhibitory inputs, etc.), how accurately can we predict its cell
-type and neurotransmitter? Which models work best, and do unsupervised clusters in connectivity
-space line up with the annotated cell types?
+Given only features describing each neuron's wiring and size (input/output partners and synapses, the neurotransmitter profile of its outputs, cell size, and synapses per brain region), how accurately can we predict its super-class? We compare a simple baseline (logistic regression) with gradient-boosted trees, evaluate with metrics that account for strong class imbalance, and examine which features drive the predictions. As an extension, we test how performance changes at a finer level of the cell-type hierarchy (class).
 
 ## Data
 
@@ -63,8 +58,5 @@ fly-connectome/
 
 - [ ] **Phase 0 – Data:** load the FlyWire tables, exploratory analysis, per-neuron connectivity features, train/validation/test split.
 - [ ] **Phase 1 – Linear regression:** predict a continuous quantity (e.g. number of output synapses); MSE, R², ridge and lasso.
-- [ ] **Phase 2 – Logistic regression:** excitatory vs. inhibitory neurons; cross-entropy, decision threshold, confusion matrix, precision/recall/F1.
-- [ ] **Phase 3 – SVM:** linear, polynomial and RBF kernels; tuning C and γ; one-vs-one / one-vs-rest for multiple neurotransmitters.
 - [ ] **Phase 4 – Neural networks:** Keras MLP for multi-class cell-type prediction; softmax, early stopping, class imbalance.
 - [ ] **Phase 5 – CNN (optional):** classify cell type from 2D images of neuron morphology; compare shape vs. connectivity.
-- [ ] **Phase 6 – Unsupervised learning:** PCA, t-SNE, k-means; do the clusters match the annotated cell types?

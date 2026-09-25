@@ -21,20 +21,22 @@
 **Τίτλος:** Predicting neuron cell types from whole-brain connectivity (FlyWire Drosophila connectome)
 
 **Δεδομένα:** FlyWire connectome (v783), περίπου 139.000 νευρώνες και 15 εκατ. συνάψεις.
-Labels: τύπος κυττάρου (cell type) και νευροδιαβιβαστής (neurotransmitter).
+Label: super_class του νευρώνα (επίπεδο της ιεραρχίας cell type). Προαιρετικά: class (πιο λεπτομερές επίπεδο).
+Ο νευροδιαβιβαστής των εξόδων χρησιμοποιείται μόνο ως feature, όχι ως label.
 Τα αρχεία δεδομένων μπαίνουν στον φάκελο `data/` (δεν ανεβαίνουν στο git).
 
 **Εργαλεία:** Python 3.11+, Jupyter notebooks στο VS Code, pandas, numpy, scikit-learn, matplotlib, tensorflow/keras.
 Υπολογιστής: περίπου 14 GB RAM, χωρίς GPU. Όλα πρέπει να τρέχουν σε CPU.
 
-## Πλάνο (φάσεις ανά διάλεξη)
-- [ ] **Φάση 0, Δεδομένα (L01):** φόρτωση των CSV του FlyWire, εξερεύνηση, features ανά νευρώνα (βαθμοί εισόδου/εξόδου, συνάψεις ανά περιοχή εγκεφάλου, ποσοστό ανασταλτικών εισόδων), train/val/test split.
-- [ ] **Φάση 1, Linear Regression (L02):** πρόβλεψη μιας συνεχούς ποσότητας (π.χ. πλήθος συνάψεων εξόδου). MSE, R², ridge, lasso.
-- [ ] **Φάση 2, Logistic Regression (L03):** διεγερτικός vs. ανασταλτικός νευρώνας. Cross-entropy, threshold, confusion matrix, precision/recall/F1.
-- [ ] **Φάση 3, SVM (L04):** ίδιο πρόβλημα με linear, polynomial και RBF kernel. Tuning των C και γ, one-vs-one / one-vs-all για πολλούς νευροδιαβιβαστές.
-- [ ] **Φάση 4, Neural Networks (L05):** MLP σε Keras για πολλούς τύπους κυττάρων. Softmax, one-hot, early stopping, class imbalance.
-- [ ] **Φάση 5, CNN (L06, προαιρετική):** ταξινόμηση τύπου από 2D εικόνες της μορφολογίας του νευρώνα. Σύγκριση: μορφή vs. συνδεσιμότητα.
-- [ ] **Φάση 6, Unsupervised (L07):** PCA, t-SNE, k-means. Ταιριάζουν τα clusters με τους πραγματικούς τύπους;
+## Πλάνο
+- [ ] **Φάση 0, Δεδομένα:** features, καθαρισμός, stratified train/val/test split (αποθηκευμένα στο data/processed/)
+- [ ] **Βήμα 1, Baseline:** Logistic Regression για super_class
+- [ ] **Βήμα 2, Κύριο μοντέλο:** HistGradientBoostingClassifier, ρύθμιση στο validation set
+- [ ] **Βήμα 3, Αξιολόγηση στο test set:** macro-F1, recall ανά κλάση, confusion matrix
+- [ ] **Βήμα 4, Ερμηνεία:** σημασία features, ποιες κλάσεις μπερδεύονται
+- [ ] **Βήμα 5, Βελτίωση:** features συνάψεων ανά περιοχή εγκεφάλου
+- [ ] **Βήμα 6, Παρουσίαση:** αποτελέσματα και γραφήματα στο README
+- [ ] **Προαιρετικό:** επανάληψη με y = class
 
 ## Δομή φακέλων
 ```
