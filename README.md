@@ -8,7 +8,7 @@ FlyWire assigns every neuron to one of 10 super-classes (e.g. `optic`, `central`
 
 ## 2. Data
 
-FlyWire connectome, materialization **v783**, from the [FlyWire Codex](https://codex.flywire.ai). The data files are not in this repository. See [`data/README.md`](data/README.md) for the file list and column descriptions.
+FlyWire connectome, materialization **v783**, from the [FlyWire Codex](https://codex.flywire.ai), licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). The data files are not in this repository. See [`data/README.md`](data/README.md) for the file list and column descriptions.
 
 | File | Rows | Used for |
 |---|---|---|
@@ -118,7 +118,18 @@ Before adding the neuropil features, I wrote down what I expected for the weakes
 
 The data contain only synapses inside the brain. They show *that* these classes have few outputs there, not *where* the missing outputs go (ventral nerve cord, muscles, haemolymph).
 
-## 7. Limitations
+## 7. 3D visualization
+
+The 20,887 neurons of the test set, placed at their position in the brain (`data/coordinates.csv.gz`, FlyWire v783), coloured by predicted `super_class` and by whether the prediction was correct.
+
+![Predictions in the brain](results/brain3d_predictions.png)
+![Prediction errors in the brain](results/brain3d_errors.png)
+
+Errors are concentrated in the central brain, where several classes with a similar spatial profile coexist (e.g. `central` neurons predicted as `ascending`), while the optic lobes are almost error-free.
+
+The interactive versions (`results/brain3d_predictions.html`, `results/brain3d_errors.html`) open locally in a browser — rotate, zoom, and hover over a point to see its `root_id`, true and predicted class.
+
+## 8. Limitations
 
 - **The label is partly defined by location.** FlyWire super-classes are assigned partly by where a neuron sits (for example, `optic` neurons are intrinsic to the optic lobe). For large classes such as `optic` and `central`, the neuropil features let the model partly rediscover the labelling rule, rather than learn something new about connectivity.
 - **Very small classes.** The test set has only 12 `endocrine` and 17 `motor` neurons, so one or two errors move their F1 a lot. Their F1 is unstable: endocrine was 0.82 on validation and 0.70 on test.
@@ -128,12 +139,11 @@ The data contain only synapses inside the brain. They show *that* these classes 
   - `sensory_ascending` has the lowest F1 of all classes (0.61 on test).
 - **No tuning, one split.** Hyperparameters were left at their defaults, and all scores come from a single train/validation/test split, with no estimate of variance across splits.
 
-## 8. Next steps
+## 9. Next steps
 
-- A 3D visualisation of the brain with each neuron coloured by predicted vs. true super-class, to see where the errors are located.
 - Predicting the finer `class` level of the FlyWire hierarchy.
 
-## 9. How to run
+## 10. How to run
 
 Requires Python 3.11+. Everything runs on CPU. About 14 GB of RAM is enough.
 
@@ -153,6 +163,7 @@ Place the FlyWire `.csv.gz` files in `data/`, then run the notebooks in order:
 | [`00_data.ipynb`](notebooks/00_data.ipynb) | loads the tables, builds basic features, stratified split, then neuropil features. Writes `data/processed/` |
 | [`01_baseline.ipynb`](notebooks/01_baseline.ipynb) | Logistic Regression baseline |
 | [`02_boosting.ipynb`](notebooks/02_boosting.ipynb) | HistGradientBoosting (basic, then + neuropil), test evaluation, interpretation. Writes figures to `results/` |
+| [`03_brain3d.ipynb`](notebooks/03_brain3d.ipynb) | 3D visualization of the test-set predictions. Needs `data/coordinates.csv.gz` (download separately from the [FlyWire Codex](https://codex.flywire.ai)) |
 
 ## Data citation
 
